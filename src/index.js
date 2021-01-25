@@ -5,7 +5,9 @@ import './index.css';
 
 const Hello = (props) => (
   <div>
-    <p>Hello {props.attr1}</p>
+    <h1>Ticket Reservation System</h1>
+    <br></br>
+    <p>Congratulations! You have booked a ticket for yourself. Go to the cinema hall! Enjoy!</p>
   </div>
 );
 
