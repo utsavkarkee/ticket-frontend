@@ -1,18 +1,72 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import './App.css';
-import AppHeader from './AppHeader'
+import React, { useState, useEffect } from "react";
+import { Switch, Route, Link } from "react-router-dom";
 
-class App extends React.Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <AppHeader />
-        <Switch>
-          <Route exact path="/" component={HomePage} allowed={[]} />
-        </Switch>
-      </BrowserRouter>
-    )
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+
+import Login from "./components/Login";
+import Movies from "./components/Movies";
+
+import AuthService from "./services/auth-service";
+
+
+const App = () => {
+
+  const [currentUser, setCurrentUser] = useState(undefined);
+
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+
+    if (user) {
+      setCurrentUser(user);
+    }
+  }, []);
+
+  const logout = () => {
+    AuthService.logout();
   }
-}
 
-export default App
+
+  return (
+    <div>
+      <nav className="navbar navbar-expand navbar-dark bg-dark">
+        <Link to={"/"} className="navbar-brand">Shailesh Ticket Booking</Link>
+
+        <div className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <Link to={"/movies"} className="nav-link">
+              Movies
+            </Link>
+          </li>
+        </div>
+
+        {currentUser ? (
+          <div className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <a href="/login" className="nav-link" onClick={logout}>
+                Log Out
+              </a>
+            </li>
+          </div>
+        ): (
+          <div className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <Link to={"/login"} className="nav-link">
+                Login
+              </Link>
+            </li>
+          </div>
+        )}
+      </nav>
+
+      <div className="container mt-3">
+        <Switch>
+          <Route exact path={"/", "/movies"} component={Movies} />
+          <Route exact path="/login" component={Login} />
+        </Switch>
+      </div>
+    </div>
+  )
+};
+
+export default App;
