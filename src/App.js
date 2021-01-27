@@ -6,6 +6,9 @@ import "./App.css";
 
 import Login from "./components/Login";
 import Movies from "./components/Movies";
+import Shows from "./components/Shows";
+import CreateBooking from "./components/CreateBooking";
+import Bookings from "./components/Bookings";
 
 import AuthService from "./services/auth-service";
 
@@ -38,6 +41,11 @@ const App = () => {
               Movies
             </Link>
           </li>
+          <li className="nav-item">
+            <Link to={"/bookings"} className="nav-link">
+              Bookings
+            </Link>
+          </li>
         </div>
 
         {currentUser ? (
@@ -63,6 +71,9 @@ const App = () => {
         <Switch>
           <Route exact path={"/", "/movies"} component={Movies} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/shows" component={Shows} />
+          <Route exact path="/booking" component={CreateBooking} />
+          <Route exact path="/bookings" component={Bookings} />
         </Switch>
       </div>
     </div>

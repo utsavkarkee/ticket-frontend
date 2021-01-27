@@ -31,6 +31,7 @@ const Login = (props) => {
             () => {
                 props.history.push("/movies");
                 window.location.reload();
+                setLoading(false);
             },
             (error) => {
                 const resMessage = 
